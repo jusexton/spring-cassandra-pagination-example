@@ -1,0 +1,1 @@
+CREATE TABLE pagination.users (id UUID PRIMARY KEY, firstName text, lastName text);
