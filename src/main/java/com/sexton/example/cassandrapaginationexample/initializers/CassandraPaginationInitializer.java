@@ -2,7 +2,7 @@ package com.sexton.example.cassandrapaginationexample.initializers;
 
 import com.sexton.example.cassandrapaginationexample.models.User;
 import com.sexton.example.cassandrapaginationexample.repositories.UserRepository;
-import com.sexton.example.cassandrapaginationexample.util.UserSupplier;
+import com.sexton.example.cassandrapaginationexample.util.RandomUserSupplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public class CassandraPaginationInitializer implements CommandLineRunner {
         final List<String> firstNames = loadNames(FIRST_NAMES_PATH);
         final List<String> lastNames = loadNames(LAST_NAMES_PATH);
 
-        final UserSupplier supplier = new UserSupplier(firstNames, lastNames);
+        final RandomUserSupplier supplier = new RandomUserSupplier(firstNames, lastNames);
         final List<User> users = Stream.generate(supplier).limit(USER_MAX).collect(Collectors.toList());
         userRepository.saveAll(users);
 

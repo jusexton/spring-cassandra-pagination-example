@@ -9,13 +9,24 @@ group = 'com.sexton.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
+
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-cassandra'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compile 'org.springframework.boot:spring-boot-starter'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-data-cassandra'
+
+    testCompile('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'junit', module: 'junit'
+    }
+
+    testImplementation ('org.junit.jupiter:junit-jupiter-api')
+    testCompile ('org.junit.jupiter:junit-jupiter-params')
+    testRuntime ('org.junit.jupiter:junit-jupiter-engine')
+    testCompile ('org.mockito:mockito-junit-jupiter')
+    test.useJUnitPlatform()
 }

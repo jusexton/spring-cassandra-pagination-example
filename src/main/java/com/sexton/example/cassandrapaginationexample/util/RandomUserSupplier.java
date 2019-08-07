@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 /**
  * Responsible for supplying random user objects.
  */
-public class UserSupplier implements Supplier<User> {
+public class RandomUserSupplier implements Supplier<User> {
     private final List<String> firstNames;
     private final List<String> lastNames;
 
@@ -18,7 +18,7 @@ public class UserSupplier implements Supplier<User> {
      * @param firstNames The strings that will be used to make up newly created user first names.
      * @param lastNames The strings that will be used to make up newly created user last names.
      */
-    public UserSupplier(final List<String> firstNames, final List<String> lastNames) {
+    public RandomUserSupplier(final List<String> firstNames, final List<String> lastNames) {
         this.firstNames = firstNames;
         this.lastNames = lastNames;
     }

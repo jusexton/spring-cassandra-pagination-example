@@ -1,35 +1,29 @@
 package com.sexton.example.cassandrapaginationexample.validation;
 
 import com.sexton.example.cassandrapaginationexample.dto.GetUserByIdDTO;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.Set;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class GetUserByIdRequestTests {
-    @Autowired
-    private Validator validator;
+public class GetUserByIdRequestTest {
+    private static Validator validator;
+
+    @BeforeAll
+    public static void setup() {
+        validator = Validation.buildDefaultValidatorFactory().getValidator();
+    }
 
     @Test
     public void requestShouldHaveOneViolationWhenGivenInvalidUUID() {
         final Set<ConstraintViolation<GetUserByIdDTO>> violations = getViolations("123");
         assertEquals(1, violations.size());
-    }
-
-    @Test
-    public void requestShouldHaveTwoViolationsWhenNoUUIDProvided() {
-        final Set<ConstraintViolation<GetUserByIdDTO>> violations = getViolations("");
-        assertEquals(2, violations.size());
     }
 
     @Test

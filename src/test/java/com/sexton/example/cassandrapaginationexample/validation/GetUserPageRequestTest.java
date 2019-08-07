@@ -1,23 +1,23 @@
 package com.sexton.example.cassandrapaginationexample.validation;
 
 import com.sexton.example.cassandrapaginationexample.dto.GetUserPageDTO;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class GetUserPageRequestTests {
-    @Autowired
-    private Validator validator;
+public class GetUserPageRequestTest {
+    private static Validator validator;
+
+    @BeforeAll
+    public static void setup() {
+        validator = Validation.buildDefaultValidatorFactory().getValidator();
+    }
 
     @Test
     public void requestShouldHaveNoViolationsWhenPassedNoData() {
@@ -31,6 +31,7 @@ public class GetUserPageRequestTests {
     public void requestShouldHaveOneViolationWhenLimitIsZero() {
         final GetUserPageDTO getUserPageRequest = new GetUserPageDTO();
         getUserPageRequest.setLimit(0);
+
         final Set<ConstraintViolation<GetUserPageDTO>> violations = validator.validate(getUserPageRequest);
 
         assertEquals(1, violations.size());
@@ -40,6 +41,7 @@ public class GetUserPageRequestTests {
     public void requestShouldHaveOneViolationWhenLimitIsOverOneHundred() {
         final GetUserPageDTO getUserPageRequest = new GetUserPageDTO();
         getUserPageRequest.setLimit(101);
+
         final Set<ConstraintViolation<GetUserPageDTO>> violations = validator.validate(getUserPageRequest);
 
         assertEquals(1, violations.size());
