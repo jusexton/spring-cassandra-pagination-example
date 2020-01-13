@@ -1,4 +1,4 @@
-# Cassandra Pagination Example with Spring Boot
+# Spring Cassandra Pagination Example with Spring Boot
 
 Small CRUD application demonstration how to paginate results using Apache Cassandra with Spring Boot.
 
@@ -24,7 +24,7 @@ public CassandraPage<User> getPageOfUsers(final CassandraPageRequest cassandraPa
 }
 ```
 
-Paging state is acquired from page requests to cassandra. It can be extracted by using the following method. 
+Paging state is acquired from page requests to cassandra. It can be extracted by using the following method.
 ```
 CassandraPageRequest pageRequest = (CassandraPageRequest) slice.nextPageable();
 this.pagingState = Objects.requireNonNull(pageRequest.getPagingState()).toString();
