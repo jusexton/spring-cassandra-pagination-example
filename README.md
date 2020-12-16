@@ -8,7 +8,8 @@ cassandra will read the result set starting from the beginning.
 
 The main key to this functionality in Spring Boot is creating the CassandraPageRequest.
 Note the PageRequest object simply limits the number of results and does not determine where the results will be read from.
-```
+
+```java
 private CassandraPageRequest createCassandraPageRequest(final Integer limit, final String pagingState) {
     final PageRequest pageRequest = PageRequest.of(0, limit);
     final PagingState pageState = pagingState != null ? PagingState.fromString(pagingState) : null;
@@ -17,7 +18,7 @@ private CassandraPageRequest createCassandraPageRequest(final Integer limit, fin
 ```
 
 Now simply use your CassandraPageRequest like it was any other page request.
-```
+```java
 public CassandraPage<User> getPageOfUsers(final CassandraPageRequest cassandraPageRequest) {
     final Slice<User> userSlice = userRepository.findAll(cassandraPageRequest);
     return new CassandraPage<>(userSlice);
@@ -25,7 +26,7 @@ public CassandraPage<User> getPageOfUsers(final CassandraPageRequest cassandraPa
 ```
 
 Paging state is acquired from page requests to cassandra. It can be extracted by using the following method.
-```
+```java
 CassandraPageRequest pageRequest = (CassandraPageRequest) slice.nextPageable();
 this.pagingState = Objects.requireNonNull(pageRequest.getPagingState()).toString();
 ```
