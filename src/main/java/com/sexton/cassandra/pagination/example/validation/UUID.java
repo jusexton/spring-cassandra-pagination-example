@@ -2,10 +2,12 @@ package com.sexton.cassandra.pagination.example.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
+import javax.validation.constraints.Pattern;
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = UUIDValidator.class)
+@Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
+@Constraint(validatedBy = {})
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UUID {

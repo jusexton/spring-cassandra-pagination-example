@@ -1,11 +1,13 @@
 package com.sexton.cassandra.pagination.example.models;
 
 import com.datastax.driver.core.utils.UUIDs;
+import lombok.Data;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.util.UUID;
 
+@Data
 @Table("users")
 public class User {
     @PrimaryKey
@@ -22,30 +24,6 @@ public class User {
     @Override
     public String toString() {
         return String.format("id: %s | firstname: %s | lastname: %s", id, firstName, lastName);
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getFullName() {
